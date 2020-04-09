@@ -10,6 +10,7 @@ namespace dukt\videos\gateways;
 use dukt\videos\base\Gateway;
 use dukt\videos\errors\CollectionParsingException;
 use dukt\videos\errors\VideoNotFoundException;
+use dukt\videos\helpers\VideosHelper;
 use dukt\videos\models\Collection;
 use dukt\videos\models\Section;
 use dukt\videos\models\Video;
@@ -489,7 +490,7 @@ class Vimeo extends Gateway
 
         // Video duration
         $video->durationSeconds = $data['duration'];
-        $video->duration8601 = $this->getDuration8601($data['duration']);
+        $video->duration8601 = VideosHelper::getDuration8601($data['duration']);
 
         $this->parsePrivacy($video, $data);
         $this->parseThumbnails($video, $data);
@@ -497,33 +498,7 @@ class Vimeo extends Gateway
         return $video;
     }
 
-    /**
-     * Formats seconds to ISO 8601 duration
-     *
-     * @param $seconds
-     *
-     * @return string
-     */
-    private function getDuration8601($seconds): string
-    {
-        $hours = (int)((int)$seconds / 3600);
-        $minutes = (($seconds / 60) % 60);
-        $seconds %= 60;
-
-        $iso8601 = 'PT';
-
-        if ($hours > 0) {
-            $iso8601 .= "{$hours}H";
-        }
-
-        if ($minutes > 0) {
-            $iso8601 .= "{$minutes}M";
-        }
-
-        $iso8601 .= "{$seconds}S";
-
-        return $iso8601;
-    }
+   
 
     /**
      * Parse video’s privacy data.
