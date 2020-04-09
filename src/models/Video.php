@@ -142,6 +142,16 @@ class Video extends Model
     }
 
     /**
+     * Get the video’s 8601 duration.
+     *
+     * @return string
+     */
+    public function getDuration8601(): string
+    {
+        return VideosHelper::getDuration8601($this->durationSeconds);
+    }
+
+    /**
      * Get the video’s embed.
      *
      * @param array $opts

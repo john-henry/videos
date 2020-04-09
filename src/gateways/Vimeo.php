@@ -489,7 +489,7 @@ class Vimeo extends Gateway
 
         // Video duration
         $video->durationSeconds = $data['duration'];
-        // $video->duration8601 = VideosHelper::getDuration8601($data['duration']);
+        $video->duration8601 = VideosHelper::getDuration8601($data['duration']);
 
         $this->parsePrivacy($video, $data);
         $this->parseThumbnails($video, $data);
