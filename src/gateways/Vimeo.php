@@ -498,6 +498,34 @@ class Vimeo extends Gateway
     }
 
     /**
+     * Formats seconds to ISO 8601 duration
+     *
+     * @param $seconds
+     *
+     * @return string
+     */
+    private function getDuration8601($seconds): string
+    {
+        $hours = (int)((int)$seconds / 3600);
+        $minutes = (($seconds / 60) % 60);
+        $seconds %= 60;
+
+        $iso8601 = 'PT';
+
+        if ($hours > 0) {
+            $iso8601 .= "{$hours}H";
+        }
+
+        if ($minutes > 0) {
+            $iso8601 .= "{$minutes}M";
+        }
+
+        $iso8601 .= "{$seconds}S";
+
+        return $iso8601;
+    }
+
+    /**
      * Parse video’s privacy data.
      *
      * @param Video $video
