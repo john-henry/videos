@@ -476,7 +476,7 @@ class Vimeo extends Gateway
         $video->authorName = $data['user']['name'];
         $video->authorUrl = $data['user']['link'];
         $video->date = new DateTime($data['created_time']);
-        $video->durationSeconds = $data['duration'];
+        //$video->durationSeconds = $data['duration'];
         $video->description = $data['description'];
         $video->gatewayHandle = 'vimeo';
         $video->gatewayName = 'Vimeo';
@@ -486,6 +486,10 @@ class Vimeo extends Gateway
         $video->url = 'https://vimeo.com/'.substr($data['uri'], 8);
         $video->width = $data['width'];
         $video->height = $data['height'];
+
+        // Video duration
+        $video->durationSeconds = $data['duration'];
+        $video->duration8601 = $this->getDuration8601($data['duration']);
 
         $this->parsePrivacy($video, $data);
         $this->parseThumbnails($video, $data);
