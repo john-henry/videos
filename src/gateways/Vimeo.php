@@ -3,7 +3,6 @@
  * @link      https://dukt.net/videos/
  * @copyright Copyright (c) 2019, Dukt
  * @license   https://github.com/dukt/videos/blob/v2/LICENSE.md
- * rev1.1
  */
 
 namespace dukt\videos\gateways;
@@ -11,7 +10,6 @@ namespace dukt\videos\gateways;
 use dukt\videos\base\Gateway;
 use dukt\videos\errors\CollectionParsingException;
 use dukt\videos\errors\VideoNotFoundException;
-use dukt\videos\helpers\VideosHelper;
 use dukt\videos\models\Collection;
 use dukt\videos\models\Section;
 use dukt\videos\models\Video;
@@ -478,7 +476,7 @@ class Vimeo extends Gateway
         $video->authorName = $data['user']['name'];
         $video->authorUrl = $data['user']['link'];
         $video->date = new DateTime($data['created_time']);
-        //$video->durationSeconds = $data['duration'];
+        $video->durationSeconds = $data['duration'];
         $video->description = $data['description'];
         $video->gatewayHandle = 'vimeo';
         $video->gatewayName = 'Vimeo';
@@ -489,17 +487,11 @@ class Vimeo extends Gateway
         $video->width = $data['width'];
         $video->height = $data['height'];
 
-        // Video duration
-        $video->durationSeconds = $data['duration'];
-        $video->duration8601 = VideosHelper::getDuration8601($data['duration']);
-
         $this->parsePrivacy($video, $data);
         $this->parseThumbnails($video, $data);
 
         return $video;
     }
-
-   
 
     /**
      * Parse video’s privacy data.

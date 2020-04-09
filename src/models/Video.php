@@ -69,11 +69,6 @@ class Video extends Model
     public $durationSeconds;
 
     /**
-     * @var int|null Duration of the video in ISO 8601 format
-     */
-    public $duration8601;
-
-    /**
      * @var string|null The author’s name
      */
     public $authorName;
@@ -139,16 +134,6 @@ class Video extends Model
     public function getDuration(): string
     {
         return VideosHelper::getDuration($this->durationSeconds);
-    }
-
-    /**
-     * Get the video’s duration.
-     *
-     * @return string
-     */
-    public function getDuration8601(): string
-    {
-        return VideosHelper::getDuration8601($this->durationSeconds);
     }
 
     /**
