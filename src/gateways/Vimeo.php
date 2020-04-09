@@ -3,6 +3,7 @@
  * @link      https://dukt.net/videos/
  * @copyright Copyright (c) 2019, Dukt
  * @license   https://github.com/dukt/videos/blob/v2/LICENSE.md
+ * rev1.1
  */
 
 namespace dukt\videos\gateways;
